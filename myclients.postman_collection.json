@@ -1,0 +1,278 @@
+{
+	"info": {
+		"_postman_id": "345eaafe-5bed-402b-bccb-e51913feca71",
+		"name": "Collection Runner",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48088343",
+		"_collection_link": "https://keciliamar15-3035593.postman.co/workspace/WorkspaceTeam~4b51917c-9b93-4d2d-ac54-a8893a35f805/collection/48088343-345eaafe-5bed-402b-bccb-e51913feca71?action=share&source=collection_link&creator=48088343"
+	},
+	"item": [
+		{
+			"name": "Post new Client",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\" Verif du code retour \", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"if(pm.response.to.have.status(201))\r",
+							"{\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.collectionVariables.set(\"newID\", jsonData.id)\r",
+							"\r",
+							"    console.info(\"Le client est bien crée sous l'id \" + \r",
+							"pm.collectionVariables.get(\"newID\"));\r",
+							"\r",
+							"}\r",
+							"else{\r",
+							"    console.info(\"Le cient n'a pas ete crée\")\r",
+							"}\r",
+							"\r",
+							"{ \r",
+							"pm.test.skip(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"lastname\": \"Kai\",\r\n        \"firstname\": \"Havertz\",\r\n        \"address\": \"null\"\r\n    }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://6399e35616b0fdad774cf364.mockapi.io/testapi/api/v1/clients",
+					"protocol": "https",
+					"host": [
+						"6399e35616b0fdad774cf364",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"testapi",
+						"api",
+						"v1",
+						"clients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Client",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"if(pm.response.to.have.status(200))\r",
+							"{\r",
+							"\r",
+							"    console.info(\"Le client avec l'id \" + pm.collectionVariables.get(\"newID\") + \" a  bien ete mis a jour\" \r",
+							");\r",
+							"\r",
+							"}\r",
+							"else{\r",
+							"    console.info(\"Le cient n'a pas  ete mis a jour \")\r",
+							"}\r",
+							"\r",
+							"\r",
+							"pm.test.skip(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"lastname\": \"aprespatch\",\r\n        \"firstname\": \"aprespatch\"\r\n \r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://6399e35616b0fdad774cf364.mockapi.io/testapi/api/v1/clients/{{newID}}",
+					"protocol": "https",
+					"host": [
+						"6399e35616b0fdad774cf364",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"testapi",
+						"api",
+						"v1",
+						"clients",
+						"{{newID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Client by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Your test name\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.lastname).to.eql(\"aprespatch\");\r",
+							"    pm.expect(jsonData.firstname).to.eql(\"aprespatch\");\r",
+							"    console.info(\"Le client rajouté a ete bien retrouvé par  l'ID \" + \r",
+							"pm.collectionVariables.get(\"newID\"))\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test.skip(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://6399e35616b0fdad774cf364.mockapi.io/testapi/api/v1/clients/{{newID}}",
+					"protocol": "https",
+					"host": [
+						"6399e35616b0fdad774cf364",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"testapi",
+						"api",
+						"v1",
+						"clients",
+						"{{newID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Client  By ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"if(pm.response.to.have.status(200))\r",
+							"{\r",
+							"\r",
+							"    console.info(\"Le client sous l'id \" +pm.collectionVariables.get(\"newID\") +  \" a  bien ete supprimé \")\r",
+							";\r",
+							"\r",
+							"}\r",
+							"else{\r",
+							"    console.info(\"Le cient n'a pas  ete sipprimé \")\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test.skip(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://6399e35616b0fdad774cf364.mockapi.io/testapi/api/v1/clients/{{newID}}",
+					"protocol": "https",
+					"host": [
+						"6399e35616b0fdad774cf364",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"testapi",
+						"api",
+						"v1",
+						"clients",
+						"{{newID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "newID",
+			"value": ""
+		}
+	]
+}
