@@ -32,6 +32,11 @@
 							"    console.info(\"Le cient n'a pas ete crée\")\r",
 							"}\r",
 							"\r",
+							"pm.test.skip(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
 							""
 						],
 						"type": "text/javascript",
